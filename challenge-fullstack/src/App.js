@@ -21,7 +21,7 @@ function App() {
     const archivoPath = storageRef.child(archivoRef.name);
     await archivoPath.put(archivoRef);
 
-    // console.log("archivo cargado", archivoRef.name);
+    console.log("archivo cargado", archivoRef.name);
 
     const enlaceUrl = await archivoPath.getDownloadURL();
     setArchivoURL(enlaceUrl);
@@ -39,7 +39,7 @@ function App() {
       .doc(nombreArchivo)
       .set({ name: nombreArchivo, url: archivoURL });
 
-    // console.log("archivo cargado:", nombreArchivo, "url:", archivoURL);
+    console.log("archivo cargado:", nombreArchivo, "url:", archivoURL);
 
     window.location = "/";
   };
