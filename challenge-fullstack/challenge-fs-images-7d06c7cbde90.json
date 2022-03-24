@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "challenge-fs-images",
+  "private_key_id": "7d06c7cbde90776e98502aa9c68e38c413a5039c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDOm3pQd0ib4Y5v\nBsGXEH1BY765vjF7T8DyhenTh63mPithIq/B0p+enV+uNlhLF0CLrgVT8QkhDOHF\nkNr14SDUpmHrGBdcN76D5qpwYiCEV9DDZVp8ujI6IpzfemXWeMYKOCpjJccapAn9\nO3tqgT0O7swaTrj45aVbOifrxok2Fc/ZkzelibMk+O+8tBE8il3S47AT0eOKdkv9\nQ6vpMgmS9TsTjNCR6SA0wSwO7VxYawRdX7hvwTw08QgnOBwUH9SqSw9qLx8D22pC\njwx7s8I/mZuxBBOFaNmkwSs0ifIkk/5aEj8O2M/WZXhN1U5EWXHoXxN2GB9l1f9l\nYHU1eG1TAgMBAAECggEALpKDluHcny7QAZz/RIM2COhoFMyXsNlAgCrJk6IxBAad\nlq7P+Zv12TZWXBnp+ztJlHLsxog965JQzk0h3m0aDnVW+zyZ/3KdYnQ7lUu5UrvM\n1k7hf94k9k/ZFtMrY5Yj5ifU/jaE1C+IBOpEnrR1RAl2PrPiJFD33kGUwCQnx+Xp\nGXVJBBZ1IQ/6TlkgPRjW/H9Yda6KbFvRr5CvzLo7m5+jOqmB6HxMAmyLBUJyXIT0\n4qslCjYne0gjm7SpuVIRjGDn6PYBY8m3M+FCQQ7SpD39hA7qof7ElWGVluk8NqM9\nw6LWXhAGbFKZh5nG2tsVZxKKaWB09FWg9ElZ7RR5uQKBgQDqdbHMNk8mKGVbTiwk\nkKqimmF6grft9rJq+Y5DnRQlql9fqaP1NsndlD1rEIbuQgOcCulhfhFOq1y2yYwk\nfBB54ZBJvcbSVdnGIGLKKaJb3pVM9PVBCoaxCNlXiZzaiICelS/f1ZPoivxUymf4\n9TGq/Rueflo4FN5cQ4Q6nGEzdwKBgQDhlreHCHFXSusry01t46MUJZjXb4kJKR5r\n9+azq8Ej3z2nzZKeSfrylvCFDnS3MuMckQ3Dw3NIMdmDmuhMimQc01O2ThZugmNB\nS+Al7ipb14SvL7z7rCAQlqtZdKNAZ3UM2jSquj3Ou8VdoY6HDK7IN0lSsU1USLna\ny1B8IOP0BQKBgQCMvVGZMBCa6yzMfkRpPp3vNZTGIamfIrM/G8aWN7hcU8Uke4R8\nMgNDCzVDC4yzgNUB2lr1tuNUwfDJmHqTfBW30/r1CQJMSFSNZetnR066rwYYSALg\npBzuME2nCmgplj7+8rbmOiKrOKL3kviOrUC/T2hA37/wYjaIU88QD8cZSQKBgGoi\nsQJVFI5Pb0nRgwJ6oVVvQvPJRB4NPITrw50w59PqymVSsPLMN8c/ALZ5UKyIwpXE\nIUfDg0+qNH5YuYaZbfSp8K7LGn6v1eb4veLapQ9E3OZXfYCjQQrM+J1D5TL9+fIs\nD69rpHzJl1gwFJCxhOIqMNM5G/rVpKuuEJX2G4nJAoGATewpwhcLzQW7+klNObEk\niwSkSetYGkaEO+zhMuQ8/V7c6lJn6uJfge8cprVokvMlBwwMAZ66rOtBaGJbeBNq\nIBTMnbv/UAcXJcK/uEM61utvayqUMvphjsPfOZjl4IZXmwAcBvMG02PF/USgZpI+\n96MlJbDuqwQ4jFc1XE1dJ+4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "challenge-images@challenge-fs-images.iam.gserviceaccount.com",
+  "client_id": "112339127309808856337",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/challenge-images%40challenge-fs-images.iam.gserviceaccount.com"
+}
