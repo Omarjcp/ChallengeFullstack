@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { app } from "../../../firebase/fb";
 
-import { app } from "../../firebase/fb";
+import { Form, Button, Upload, message, Input } from "antd";
+import { InboxOutlined, PictureOutlined } from "@ant-design/icons";
 
-import { Form, Select, Button, Upload, Alert, message } from "antd";
-import { UploadOutlined, InboxOutlined } from "@ant-design/icons";
-const { Option } = Select;
-
-export const InputUploadImage = ({ setToggleLoading, setVisible }) => {
+export const InputUploadImage = ({ setVisible, setToggleLoading, getData }) => {
   const [archivoURL, setArchivoURL] = useState("");
   const [nameFile, setNameFile] = useState("");
+
+  const [form] = Form.useForm();
 
   // const handleInputChange = async (e) => {
   //   const archivoRef = e.target.files[0];
@@ -52,7 +52,9 @@ export const InputUploadImage = ({ setToggleLoading, setVisible }) => {
   };
 
   const normFile = (e) => {
+    setToggleLoading(true);
     uploadFile(e);
+    setTimeout(() => setToggleLoading(false), 1000);
   };
 
   const onChangeInputText = (e) => {
@@ -61,11 +63,8 @@ export const InputUploadImage = ({ setToggleLoading, setVisible }) => {
 
   const onFinish = async (values) => {
     setToggleLoading(true);
-    setVisible(false);
-    setTimeout(() => {
-      setToggleLoading(false);
-    }, 1000);
     values.name = nameFile;
+    form.resetFields();
 
     if (!nameFile) {
       message.error("El archivo debe tener un nombre");
@@ -76,6 +75,12 @@ export const InputUploadImage = ({ setToggleLoading, setVisible }) => {
       .doc(nameFile)
       .set({ name: nameFile, url: archivoURL });
 
+    setVisible(false);
+    getData();
+    setTimeout(() => {
+      setToggleLoading(false);
+      setVisible(false);
+    }, 2000);
     console.log("Received values of form: ", values);
   };
 
@@ -93,38 +98,31 @@ export const InputUploadImage = ({ setToggleLoading, setVisible }) => {
         <input type="text" name="name" placeholder="nombra tu imagen" />
         <button>Enviar</button>
       </form> */}
-        <Form name="validate_other" onFinish={onFinish}>
-          <Form.Item>
+        <Form name="validate_other" form={form} onFinish={onFinish}>
+          <Form.Item name="dragg">
             <Form.Item
               name="dragger"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               noStyle
             >
-              <Upload.Dragger name="files">
+              <Upload.Dragger name="files" accept="image/*">
                 <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
+                  <PictureOutlined />
                 </p>
                 <p className="ant-upload-text">
-                  Click or drag file to this area to upload
+                  Click or drag image to this area to upload
                 </p>
-                <p className="ant-upload-hint">
-                  Support for a single or bulk upload.
-                </p>
+                <p className="ant-upload-hint">Only single upload.</p>
               </Upload.Dragger>
             </Form.Item>
 
-            <Form.Item
-              wrapperCol={{
-                offset: 8,
-              }}
-              name="name"
-              getValueFromEvent={onChangeInputText}
-            >
-              <input
+            <Form.Item name="name" getValueFromEvent={onChangeInputText}>
+              <Input
                 style={{ marginTop: "2rem" }}
                 type="text"
-                name="name"
+                name="nameInput"
+                maxLength={30}
                 placeholder="Nombre de tu imagen"
               />
             </Form.Item>

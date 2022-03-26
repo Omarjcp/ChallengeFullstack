@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Modal, Button } from "antd";
-import { InputUploadImage } from "../inputUpload";
+import { InputUploadImage } from "../header/inputUpload";
 
-export const ButtomModalFile = ({ setToggleLoading }) => {
+export const ButtomModalFile = ({ setToggleLoading, getData }) => {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <Button type="primary" onClick={() => setVisible(true)}>
+      <Button type="primary" size="large" onClick={() => setVisible(true)}>
         Upload Image
       </Button>
       <Modal
@@ -22,6 +22,7 @@ export const ButtomModalFile = ({ setToggleLoading }) => {
         <InputUploadImage
           setToggleLoading={setToggleLoading}
           setVisible={setVisible}
+          getData={getData}
         />
       </Modal>
     </>
