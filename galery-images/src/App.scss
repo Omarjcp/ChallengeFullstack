@@ -1,0 +1,28 @@
+.ant-upload-list-item-error,
+.ant-upload-list-item-error .ant-upload-text-icon > .anticon,
+.ant-upload-list-item-error .ant-upload-list-item-name {
+  color: rgb(77, 122, 77);
+}
+
+.ant-upload-list-item-error .ant-upload-list-item-card-actions .anticon {
+  color: rgb(77, 122, 77);
+}
+
+.ant-btn-primary {
+  background-color: #4fc082;
+  border-color: #4fc082;
+
+  &:hover {
+    background-color: #398d5f;
+    border-color: #398d5f;
+  }
+
+  &:focus {
+    background-color: #4fc082;
+    border-color: #4fc082;
+  }
+}
+
+body {
+  background-color: rgb(236, 236, 236);
+}
