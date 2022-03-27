@@ -12,7 +12,7 @@ export const Footer = () => {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        marginTop: "3rem",
+        marginTop: "1rem",
       }}
     >
       <p>
@@ -25,14 +25,14 @@ export const Footer = () => {
           }}
         > */}
         <a href="https://github.com/Omarjcp" target="_blank">
-          <GithubOutlined style={{ fontSize: "1.3rem" }} />
+          <GithubOutlined style={{ fontSize: "1.3rem", color: "#4fc082" }} />
         </a>{" "}
         -{" "}
         <a
           href="https://www.linkedin.com/in/omar-jose-castillo/"
           target="_blank"
         >
-          <LinkedinFilled style={{ fontSize: "1.3rem" }} />
+          <LinkedinFilled style={{ fontSize: "1.3rem", color: "#4fc082" }} />
         </a>
         {/* </div> */}
       </p>

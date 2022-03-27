@@ -108,7 +108,7 @@ export const InputUploadImage = ({ setVisible, setToggleLoading, getData }) => {
             >
               <Upload.Dragger name="files" accept="image/*">
                 <p className="ant-upload-drag-icon">
-                  <PictureOutlined />
+                  <PictureOutlined style={{ color: "grey" }} />
                 </p>
                 <p className="ant-upload-text">
                   Click or drag image to this area to upload

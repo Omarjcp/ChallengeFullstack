@@ -5,9 +5,9 @@ import "antd/dist/antd.css";
 import { LoadingComponent } from "./components/loading";
 import { HeaderNav } from "./components/header";
 import { Galery } from "./components/galery";
-
-import "./App.css";
 import { Footer } from "./components/footer";
+
+import "./App.scss";
 
 function App() {
   const [toggleLoading, setToggleLoading] = useState(true);
@@ -26,7 +26,6 @@ function App() {
       setToggleLoading(false);
     }, 2500);
   }, []);
-  console.log(documents);
 
   const onDelete = async (e, name) => {
     e.preventDefault();

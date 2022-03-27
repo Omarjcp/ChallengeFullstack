@@ -9,6 +9,8 @@ export const HeaderNav = ({
   documents,
   getData,
   setImagesUploaded,
+  setVisible,
+  visible,
 }) => {
   return (
     <div className="containerHearder">
@@ -20,7 +22,11 @@ export const HeaderNav = ({
         setToggleLoading={setToggleLoading}
       />
       <br />
-      <ButtomModalFile setToggleLoading={setToggleLoading} getData={getData} />
+      <ButtomModalFile
+        setToggleLoading={setToggleLoading}
+        getData={getData}
+        setVisible={setVisible}
+      />
     </div>
   );
 };
