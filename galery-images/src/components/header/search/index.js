@@ -14,7 +14,7 @@ export const InputSearch = ({
   const onSearch = (value) => {
     setToggleLoading(true);
     let imagesFilter = documents.filter((image) => {
-      if (image.name.includes(value)) return image;
+      if (image.name.toLowerCase().includes(value.toLowerCase())) return image;
     });
 
     form.resetFields();
