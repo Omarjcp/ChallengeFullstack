@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { app } from "./firebase/fb";
+import { useDispatch, useSelector } from "react-redux";
 
 import "antd/dist/antd.css";
 import { LoadingComponent } from "./components/loading";
@@ -8,8 +9,12 @@ import { Galery } from "./components/galery";
 import { Footer } from "./components/footer";
 
 import "./App.scss";
+import { getUsers } from "./redux/actions";
 
 function App() {
+  const dispatch = useDispatch();
+  let { usersLength, allUsers } = useSelector((state) => state);
+
   const [toggleLoading, setToggleLoading] = useState(true);
   const [documents, setDocuments] = useState([]);
   const [imagesUploaded, setImagesUploaded] = useState([]);
@@ -21,11 +26,14 @@ function App() {
   };
   useEffect(() => {
     getData();
+    dispatch(getUsers());
 
     setTimeout(() => {
       setToggleLoading(false);
     }, 2500);
   }, []);
+
+  console.log(usersLength, allUsers);
 
   const onDelete = async (e, name) => {
     e.preventDefault();
