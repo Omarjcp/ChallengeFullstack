@@ -10,7 +10,6 @@ export const Footer = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
         width: "100%",
         marginTop: "1rem",
       }}

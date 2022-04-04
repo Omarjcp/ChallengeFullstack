@@ -7,9 +7,9 @@ import { OwnerPage } from "./ownerPage";
 export const HeaderNav = ({
   setToggleLoading,
   documents,
-  getData,
   setImagesUploaded,
   setVisible,
+  setDocuments,
   visible,
 }) => {
   return (
@@ -24,8 +24,9 @@ export const HeaderNav = ({
       <br />
       <ButtomModalFile
         setToggleLoading={setToggleLoading}
-        getData={getData}
         setVisible={setVisible}
+        setDocuments={setDocuments}
+        setImagesUploaded={setImagesUploaded}
       />
     </div>
   );

@@ -3,8 +3,14 @@ import { app } from "../../../firebase/fb";
 
 import { Form, Button, Upload, message, Input } from "antd";
 import { InboxOutlined, PictureOutlined } from "@ant-design/icons";
+import { getData } from "../../../hooks/getImages";
 
-export const InputUploadImage = ({ setVisible, setToggleLoading, getData }) => {
+export const InputUploadImage = ({
+  setVisible,
+  setToggleLoading,
+  setDocuments,
+  setImagesUploaded,
+}) => {
   const [archivoURL, setArchivoURL] = useState("");
   const [nameFile, setNameFile] = useState("");
 
@@ -76,7 +82,7 @@ export const InputUploadImage = ({ setVisible, setToggleLoading, getData }) => {
       .set({ name: nameFile, url: archivoURL });
 
     setVisible(false);
-    getData();
+    getData(app, setDocuments, setImagesUploaded);
     setTimeout(() => {
       setToggleLoading(false);
       setVisible(false);

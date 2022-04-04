@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
 import { app } from "./firebase/fb";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,6 +11,8 @@ import { Footer } from "./components/footer";
 
 import "./App.scss";
 import { getUsers } from "./redux/actions";
+import { getData } from "./hooks/getImages";
+import { CreateAccount } from "./components/CreateAccount";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,13 +22,8 @@ function App() {
   const [documents, setDocuments] = useState([]);
   const [imagesUploaded, setImagesUploaded] = useState([]);
 
-  const getData = async () => {
-    const documentsList = await app.firestore().collection("archivos").get();
-    setDocuments(documentsList.docs.map((doc) => doc.data()));
-    setImagesUploaded(documentsList.docs.map((doc) => doc.data()));
-  };
   useEffect(() => {
-    getData();
+    getData(app, setDocuments, setImagesUploaded);
     dispatch(getUsers());
 
     setTimeout(() => {
@@ -33,29 +31,37 @@ function App() {
     }, 2500);
   }, []);
 
-  console.log(usersLength, allUsers);
-
-  const onDelete = async (e, name) => {
-    e.preventDefault();
-    const colectionRef = app.firestore().collection("archivos");
-    await colectionRef.doc(name).delete();
-    getData();
-  };
-
   return (
     <>
       {toggleLoading ? <LoadingComponent /> : <></>}
       <div style={{ overflowX: "hidden" }}>
-        <HeaderNav
-          setToggleLoading={setToggleLoading}
-          documents={documents}
-          getData={getData}
-          setImagesUploaded={setImagesUploaded}
+        <Route path="/createaccount" render={() => <CreateAccount />} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <HeaderNav
+              setToggleLoading={setToggleLoading}
+              documents={documents}
+              setImagesUploaded={setImagesUploaded}
+              setDocuments={setDocuments}
+            />
+          )}
         />
 
-        <Galery imagesUploaded={imagesUploaded} onDelete={onDelete} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Galery
+              imagesUploaded={imagesUploaded}
+              setImagesUploaded={setImagesUploaded}
+              setDocuments={setDocuments}
+            />
+          )}
+        />
       </div>
-      <Footer />
+      <Route path="/" render={() => <Footer />} />
     </>
   );
 }

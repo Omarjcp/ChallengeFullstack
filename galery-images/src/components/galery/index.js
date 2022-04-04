@@ -3,8 +3,16 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Image } from "antd";
 import { WithoutImage } from "../withoutImages";
 import "./index.scss";
+import { app } from "../../firebase/fb";
+import { getData } from "../../hooks/getImages";
 
-export const Galery = ({ imagesUploaded, onDelete }) => {
+export const Galery = ({ imagesUploaded, setImagesUploaded, setDocuments }) => {
+  const onDelete = async (e, name) => {
+    e.preventDefault();
+    const colectionRef = app.firestore().collection("archivos");
+    await colectionRef.doc(name).delete();
+    getData(app, setDocuments, setImagesUploaded);
+  };
   return (
     <>
       {imagesUploaded.length === 0 ? (

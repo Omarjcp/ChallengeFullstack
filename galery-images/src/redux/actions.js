@@ -13,6 +13,7 @@ export const UPDATE_USER = "UPDATE_USER";
 
 //IMAGES
 export const GET_IMAGES = "GET_IMAGES";
+export const GET_IMAGES_LOADED = "GET_IMAGES_LOADED";
 export const CREATE_IMAGES = "CREATE_IMAGES";
 
 //LOGIN
