@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Button } from "antd";
-import { InputUploadImage } from "../header/inputUpload";
+import { InputUploadImage } from "../header/select/inputUpload";
 
 export const ButtomModalFile = ({
   setToggleLoading,

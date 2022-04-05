@@ -3,28 +3,32 @@ import { InputSearch } from "./search";
 
 import "./index.scss";
 import { OwnerPage } from "./ownerPage";
+import { SelectHeader } from "./select";
+import { useLocation } from "react-router-dom";
 
 export const HeaderNav = ({
   setToggleLoading,
   documents,
   setImagesUploaded,
-  setVisible,
   setDocuments,
-  visible,
 }) => {
+  const location = useLocation();
   return (
     <div className="containerHearder">
       <OwnerPage />
       <br />
-      <InputSearch
-        documents={documents}
-        setImagesUploaded={setImagesUploaded}
-        setToggleLoading={setToggleLoading}
-      />
+      {location.pathname === "/" ? (
+        <InputSearch
+          documents={documents}
+          setImagesUploaded={setImagesUploaded}
+          setToggleLoading={setToggleLoading}
+        />
+      ) : (
+        <></>
+      )}
       <br />
-      <ButtomModalFile
+      <SelectHeader
         setToggleLoading={setToggleLoading}
-        setVisible={setVisible}
         setDocuments={setDocuments}
         setImagesUploaded={setImagesUploaded}
       />

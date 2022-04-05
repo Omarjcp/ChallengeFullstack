@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { app } from "../../../firebase/fb";
 
 import { Form, Button, Upload, message, Input } from "antd";
 import { InboxOutlined, PictureOutlined } from "@ant-design/icons";
-import { getData } from "../../../hooks/getImages";
+import { app } from "../../../../firebase/fb";
+import { getData } from "../../../../hooks/getImages";
 
 export const InputUploadImage = ({
   setVisible,

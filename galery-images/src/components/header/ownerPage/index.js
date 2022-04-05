@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Avatar } from "antd";
 import imageAvatar from "./meCaricature.png";
 
@@ -6,9 +7,9 @@ import "./index.scss";
 export const OwnerPage = () => {
   return (
     <div className="containerOwnerMain">
-      <a href="https://github.com/Omarjcp" target="_blank">
+      <Link to="/">
         <Avatar src={imageAvatar} />
-      </a>
+      </Link>
       <div className="containerNames">
         <span style={{ fontWeight: "700", fontSize: "1rem" }}>My Unsplash</span>
         {/* <span style={{ fontWeight: "600", fontSize: ".6rem" }}>

@@ -1,13 +1,14 @@
 .container-form-sign-up {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh;
     width: 100vw;
+    
     .ant-form,.ant-form-horizontal {
         display: flex;
         flex-direction: column;
-        width: 40%;
+        width: 30%;
         .ant-row {
             flex-direction: column;
             .ant-col {
@@ -16,6 +17,11 @@
             }
         }
     }
+}
+
+.ant-form-item-control-input-content {
+    display: flex;
+    justify-content: center;
 }
 
 .ant-input {
@@ -36,3 +42,21 @@
         height: 100%;
     }
 }
+
+@media (max-width: 1250px) {
+    .container-form-sign-up {
+        .ant-form,.ant-form-horizontal {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+        }
+    }
+  }
+
+@media (max-width: 630px) {
+    .container-form-sign-up {
+        .ant-form,.ant-form-horizontal {
+            width: 80%;
+        }
+    }
+  }

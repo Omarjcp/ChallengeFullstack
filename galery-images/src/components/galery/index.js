@@ -40,7 +40,6 @@ export const Galery = ({ imagesUploaded, setImagesUploaded, setDocuments }) => {
           ))}
         </div>
       )}
-      <Divider />
     </>
   );
 };

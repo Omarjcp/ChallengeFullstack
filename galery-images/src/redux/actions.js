@@ -18,13 +18,17 @@ export const CREATE_IMAGES = "CREATE_IMAGES";
 
 //LOGIN
 export const SIGN_IN = "SIGN_IN";
+export const LOG_OUT = "LOG_OUT";
+
+//CLEAR MSGS
+export const CLEAR_MSG = "CLEAR_MSG";
 
 //ACTIOS
 
 export function signIn(payload) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post(urlServer, payload);
+      const { data } = await axios.post(urlServer + "login", payload);
       if (data.token) {
         localStorage.setItem("token", data.token);
         return dispatch({ type: SIGN_IN, payload: data });
@@ -35,14 +39,28 @@ export function signIn(payload) {
   };
 }
 
+export function logOut() {
+  return async function (dispatch) {
+    return dispatch({ type: LOG_OUT });
+  };
+}
+
 export function createUser(payload) {
   return async function (dispatch) {
     try {
+      console.log(payload);
       const { data } = await axios.post(urlServer + "user", payload);
+      console.log("data action", data);
       return dispatch({ type: CREATE_USER, payload: data });
     } catch (err) {
       console.log(err);
     }
+  };
+}
+
+export function msgClear() {
+  return async function (dispatch) {
+    return dispatch({ type: CLEAR_MSG });
   };
 }
 
@@ -60,7 +78,7 @@ export function getUsers() {
 export function getUserForId(id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios(urlServer + "user" + id);
+      const { data } = await instance.get(urlServer + "user/" + id);
       return dispatch({ type: GET_USERS_FOR_ID, payload: data });
     } catch (err) {
       console.log(err);

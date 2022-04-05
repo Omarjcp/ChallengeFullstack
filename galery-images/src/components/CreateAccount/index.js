@@ -1,35 +1,62 @@
 import { useState } from "react";
-import { GoogleLogin } from "react-google-login";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { createUser, msgClear } from "../../redux/actions";
+
+import { app } from "../../firebase/fb";
+import { GoogleLoginComp } from "../GoogleLogin";
 
 import { Form, Input, InputNumber, Button, Upload, message, Radio } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 import "./index.scss";
-import { app } from "../../firebase/fb";
+import { useSelector } from "react-redux";
 
 export const CreateAccount = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { msgCreatedUser } = useSelector((state) => state);
+
   const [dataUser, setDataUser] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [requiredMark, setRequiredMarkType] = useState("optional");
-
   const [form] = Form.useForm();
 
   const onRequiredTypeChange = ({ requiredMarkValue }) => {
     setRequiredMarkType(requiredMarkValue);
   };
 
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish = ({ user }) => {
+    dispatch(
+      createUser({
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        phone: user.phone,
+        photo: imageUrl,
+        bio: user.bio,
+        isLoginWithGoogle: false,
+      })
+    );
+
+    form.resetFields();
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
+  if (msgCreatedUser.length > 0) {
+    if (msgCreatedUser === "User created successfull") {
+      message.info("User created successfull");
+      dispatch(msgClear());
+      setTimeout(() => history.push("/signin"), 1000);
+    } else {
+      message.info("User existing");
+      dispatch(msgClear());
+    }
+  }
 
   const handleChange = async (info) => {
     // Get this url from response in real world.
-    setLoading(true);
+    setLoadingAvatar(true);
     const archivoRef = info?.file?.originFileObj;
     const storageRef = app?.storage()?.ref();
     const archivoPath = storageRef?.child(archivoRef?.name);
@@ -37,8 +64,24 @@ export const CreateAccount = () => {
     console.log("archivo cargado", archivoRef.name);
     const enlaceUrl = await archivoPath?.getDownloadURL();
     setImageUrl(enlaceUrl);
+    setTimeout(() => setLoadingAvatar(false), 3000);
+  };
 
-    setTimeout(() => setLoading(false), 3000);
+  const responseGoogle = async (response) => {
+    if (response) {
+      dispatch(
+        createUser({
+          email: response.profileObj.email,
+          name: response.profileObj.name
+            ? response.profileObj.name
+            : response.profileObj.email,
+          photo: response.profileObj.imageUrl
+            ? response.profileObj.imageUrl
+            : "",
+          isLoginWithGoogle: true,
+        })
+      );
+    }
   };
 
   return (
@@ -78,7 +121,7 @@ export const CreateAccount = () => {
                   width: "100%",
                 }}
               >
-                {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                {loadingAvatar ? <LoadingOutlined /> : <PlusOutlined />}
                 <div style={{ marginTop: "1rem" }}>Upload Avatar</div>
               </div>
             )}
@@ -123,25 +166,25 @@ export const CreateAccount = () => {
         <Form.Item name={["user", "phone"]} label="phone" required={false}>
           <Input placeholder="Ej: 1187654321" />
         </Form.Item>
-        <Form.Item name={["user", "Bio"]} label="Bio">
+        <Form.Item name={["user", "bio"]} label="Bio">
           <Input.TextArea placeholder="Description of you" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button
+            style={{
+              width: "30%",
+            }}
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </Form.Item>
-        <Form.Item>
-          <GoogleLogin
-            clientId="113771193924-l40g5aae2t8hrhmd4es25ngcn0hvi1gv.apps.googleusercontent.com"
-            buttonText="Sign up with google"
-            style={{ backgroundColor: "red" }}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          ></GoogleLogin>
-        </Form.Item>
       </Form>
+      <GoogleLoginComp responseGoogle={responseGoogle} />
+      <span style={{ color: "grey" }}>
+        Adready a member? <Link to="/signin">Login</Link>
+      </span>
     </div>
   );
 };

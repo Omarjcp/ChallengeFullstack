@@ -6,9 +6,15 @@ import {
   GET_IMAGES,
   CREATE_IMAGES,
   SIGN_IN,
+  LOG_OUT,
+  CLEAR_MSG,
 } from "./actions";
 
 const stateInitial = {
+  token: "",
+  msgLogin: "",
+  msgCreatedUser: "",
+  userLogin: {},
   usersLength: 0,
   allUsers: [],
 };
@@ -20,6 +26,42 @@ export default function rootReducer(state = stateInitial, action) {
         ...state,
         usersLength: action.payload.length,
         allUsers: action.payload,
+      };
+
+    case GET_USERS_FOR_ID:
+      return {
+        ...state,
+        userLogin: action.payload.user,
+      };
+
+    case SIGN_IN:
+      return {
+        ...state,
+        token: action.payload.token,
+        msgLogin: action.payload.msg,
+        userLogin: action.payload.user,
+        setIdStorage: localStorage.setItem("id", action.payload.user.id),
+      };
+
+    case LOG_OUT:
+      return {
+        ...state,
+        token: "",
+        msgLogin: "",
+        userLogin: {},
+      };
+
+    case CREATE_USER:
+      return {
+        ...state,
+        msgCreatedUser: action.payload.msg,
+      };
+
+    case CLEAR_MSG:
+      return {
+        ...state,
+        msgCreatedUser: "",
+        msgLogin: "",
       };
 
     default:

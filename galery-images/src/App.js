@@ -10,9 +10,10 @@ import { Galery } from "./components/galery";
 import { Footer } from "./components/footer";
 
 import "./App.scss";
-import { getUsers } from "./redux/actions";
+import { getUserForId, getUsers } from "./redux/actions";
 import { getData } from "./hooks/getImages";
 import { CreateAccount } from "./components/CreateAccount";
+import { SignInComponent } from "./components/SignIn";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,10 +22,12 @@ function App() {
   const [toggleLoading, setToggleLoading] = useState(true);
   const [documents, setDocuments] = useState([]);
   const [imagesUploaded, setImagesUploaded] = useState([]);
+  let idUserStorage = localStorage.getItem("id");
 
   useEffect(() => {
     getData(app, setDocuments, setImagesUploaded);
     dispatch(getUsers());
+    dispatch(getUserForId(idUserStorage));
 
     setTimeout(() => {
       setToggleLoading(false);
@@ -35,9 +38,7 @@ function App() {
     <>
       {toggleLoading ? <LoadingComponent /> : <></>}
       <div style={{ overflowX: "hidden" }}>
-        <Route path="/createaccount" render={() => <CreateAccount />} />
         <Route
-          exact
           path="/"
           render={() => (
             <HeaderNav
@@ -48,6 +49,8 @@ function App() {
             />
           )}
         />
+        <Route path="/createaccount" render={() => <CreateAccount />} />
+        <Route path="/signin" render={() => <SignInComponent />} />
 
         <Route
           exact
