@@ -17,7 +17,6 @@ export const CreateAccount = () => {
   const history = useHistory();
   const { msgCreatedUser } = useSelector((state) => state);
 
-  const [dataUser, setDataUser] = useState({});
   const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [requiredMark, setRequiredMarkType] = useState("optional");
@@ -45,25 +44,28 @@ export const CreateAccount = () => {
 
   if (msgCreatedUser.length > 0) {
     if (msgCreatedUser === "User created successfull") {
-      message.info("User created successfull");
+      message.info("User created successfull. Please, Sign in");
       dispatch(msgClear());
+      history.push("/signin");
       setTimeout(() => history.push("/signin"), 1000);
     } else {
-      message.info("User existing");
+      message.info("User existing. Please, Sign in");
+      history.push("/signin");
       dispatch(msgClear());
     }
   }
 
   const handleChange = async (info) => {
-    // Get this url from response in real world.
     setLoadingAvatar(true);
     const archivoRef = info?.file?.originFileObj;
     const storageRef = app?.storage()?.ref();
-    const archivoPath = storageRef?.child(archivoRef?.name);
+    const archivoPath = storageRef?.child(archivoRef?.uid);
     await archivoPath?.put(archivoRef);
-    console.log("archivo cargado", archivoRef.name);
+
     const enlaceUrl = await archivoPath?.getDownloadURL();
+
     setImageUrl(enlaceUrl);
+
     setTimeout(() => setLoadingAvatar(false), 3000);
   };
 

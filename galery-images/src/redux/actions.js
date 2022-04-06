@@ -49,9 +49,7 @@ export function logOut() {
 export function createUser(payload) {
   return async function (dispatch) {
     try {
-      console.log(payload);
       const { data } = await axios.post(urlServer + "user", payload);
-      console.log("data action", data);
       return dispatch({ type: CREATE_USER, payload: data });
     } catch (err) {
       console.log(err);
