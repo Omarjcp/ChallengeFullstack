@@ -15,6 +15,7 @@ export const UPDATE_USER = "UPDATE_USER";
 export const GET_IMAGES = "GET_IMAGES";
 export const GET_IMAGES_LOADED = "GET_IMAGES_LOADED";
 export const CREATE_IMAGES = "CREATE_IMAGES";
+export const IMAGES_SEARCH = "IMAGES_SEARCH";
 
 //LOGIN
 export const SIGN_IN = "SIGN_IN";
@@ -113,6 +114,17 @@ export function getImages() {
     try {
       const { data } = await axios(urlServer + "image");
       return dispatch({ type: GET_IMAGES, payload: data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function imagesSearch(nameImage) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios(urlServer + "image");
+      return dispatch({ type: IMAGES_SEARCH, payload: { nameImage, data } });
     } catch (err) {
       console.log(err);
     }

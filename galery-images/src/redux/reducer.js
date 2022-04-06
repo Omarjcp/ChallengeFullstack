@@ -8,6 +8,7 @@ import {
   SIGN_IN,
   LOG_OUT,
   CLEAR_MSG,
+  IMAGES_SEARCH,
 } from "./actions";
 
 const stateInitial = {
@@ -19,6 +20,7 @@ const stateInitial = {
   usersLength: 0,
   allUsers: [],
   allImages: [],
+  imagesSearchs: [],
 };
 
 export default function rootReducer(state = stateInitial, action) {
@@ -77,6 +79,21 @@ export default function rootReducer(state = stateInitial, action) {
       return {
         ...state,
         msgCreateImage: action.payload.msg,
+      };
+
+    case IMAGES_SEARCH:
+      return {
+        ...state,
+        allImages: [
+          ...action.payload.data.images.filter((image) => {
+            if (
+              image.name
+                .toLowerCase()
+                .includes(action.payload.nameImage.toLowerCase())
+            )
+              return image;
+          }),
+        ],
       };
 
     default:

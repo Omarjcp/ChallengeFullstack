@@ -1,3 +1,4 @@
+import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Card, Divider } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,7 +49,12 @@ export const ProfileUser = ({ setToggleLoading }) => {
             }
           >
             <Meta
-              avatar={<Avatar src={userLogin.photo} />}
+              avatar={
+                <Avatar
+                  src={userLogin.photo}
+                  icon={userLogin.photo ? false : <UserOutlined />}
+                />
+              }
               title={imagesData?.name}
               description={imagesData?.description}
             />
