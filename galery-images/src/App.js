@@ -10,14 +10,15 @@ import { Galery } from "./components/galery";
 import { Footer } from "./components/footer";
 
 import "./App.scss";
-import { getUserForId, getUsers } from "./redux/actions";
+import { getImages, getUserForId, getUsers } from "./redux/actions";
 import { getData } from "./hooks/getImages";
 import { CreateAccount } from "./components/CreateAccount";
 import { SignInComponent } from "./components/SignIn";
+import { ProfileUser } from "./components/profileUser";
 
 function App() {
   const dispatch = useDispatch();
-  let { usersLength, allUsers } = useSelector((state) => state);
+  let { usersLength, allUsers, allImages } = useSelector((state) => state);
 
   const [toggleLoading, setToggleLoading] = useState(true);
   const [documents, setDocuments] = useState([]);
@@ -28,6 +29,8 @@ function App() {
     getData(app, setDocuments, setImagesUploaded);
     dispatch(getUsers());
     dispatch(getUserForId(idUserStorage));
+
+    dispatch(getImages());
 
     setTimeout(() => {
       setToggleLoading(false);
@@ -62,6 +65,10 @@ function App() {
               setDocuments={setDocuments}
             />
           )}
+        />
+        <Route
+          path="/myprofile/:id"
+          render={() => <ProfileUser setToggleLoading={setToggleLoading} />}
         />
       </div>
       <Route path="/" render={() => <Footer />} />

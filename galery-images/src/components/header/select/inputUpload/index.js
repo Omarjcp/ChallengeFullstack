@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { Form, Button, Upload, message, Input } from "antd";
 import { InboxOutlined, PictureOutlined } from "@ant-design/icons";
 import { app } from "../../../../firebase/fb";
 import { getData } from "../../../../hooks/getImages";
+import { createImage, msgClear } from "../../../../redux/actions";
 
 export const InputUploadImage = ({
   setVisible,
@@ -11,8 +14,11 @@ export const InputUploadImage = ({
   setDocuments,
   setImagesUploaded,
 }) => {
-  const [archivoURL, setArchivoURL] = useState("");
-  const [nameFile, setNameFile] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { msgCreateImage, userLogin } = useSelector((state) => state);
+
+  const [imageStorage, setImageStorage] = useState({});
 
   const [form] = Form.useForm();
 
@@ -45,50 +51,46 @@ export const InputUploadImage = ({
   //   window.location = "/";
   // };
 
-  const uploadFile = async (e) => {
-    const archivoRef = e?.file?.originFileObj;
-    const storageRef = app?.storage()?.ref();
-    const archivoPath = storageRef?.child(archivoRef?.name);
-    await archivoPath?.put(archivoRef);
+  // const uploadFile = async (e) => {
+  // const archivoRef = e?.file?.originFileObj;
+  // const storageRef = app?.storage()?.ref();
+  // const archivoPath = storageRef?.child(archivoRef?.uid);
+  // await archivoPath?.put(archivoRef);
 
-    console.log("archivo cargado", archivoRef.name);
-
-    const enlaceUrl = await archivoPath?.getDownloadURL();
-    setArchivoURL(enlaceUrl);
-  };
+  // const enlaceUrl = await archivoPath?.getDownloadURL();
+  // setArchivoURL(enlaceUrl);
+  // };
 
   const normFile = (e) => {
     setToggleLoading(true);
-    uploadFile(e);
+    setImageStorage(e);
     setTimeout(() => setToggleLoading(false), 1000);
-  };
-
-  const onChangeInputText = (e) => {
-    setNameFile(e.target.value);
   };
 
   const onFinish = async (values) => {
     setToggleLoading(true);
-    values.name = nameFile;
-    form.resetFields();
+    const archivoRef = imageStorage?.file?.originFileObj;
+    const storageRef = app?.storage()?.ref();
+    const archivoPath = storageRef?.child(archivoRef?.uid);
+    await archivoPath?.put(archivoRef);
 
-    if (!nameFile) {
-      message.error("El archivo debe tener un nombre");
-      return;
-    }
-    const colectionRef = app.firestore().collection("archivos");
-    const document = await colectionRef
-      .doc(nameFile)
-      .set({ name: nameFile, url: archivoURL });
+    const enlaceUrl = await archivoPath?.getDownloadURL();
 
-    setVisible(false);
-    getData(app, setDocuments, setImagesUploaded);
-    setTimeout(() => {
+    if (enlaceUrl) {
+      values.image = enlaceUrl;
+      values.userId = userLogin.id;
+      console.log(values);
+      form.resetFields();
       setToggleLoading(false);
-      setVisible(false);
-    }, 2000);
-    console.log("Received values of form: ", values);
+      dispatch(createImage(values));
+      history.go(0);
+    }
   };
+  if (msgCreateImage) {
+    message.info(msgCreateImage);
+    dispatch(msgClear());
+  }
+  console.log(msgCreateImage);
 
   return (
     <>
@@ -105,39 +107,63 @@ export const InputUploadImage = ({
         <button>Enviar</button>
       </form> */}
         <Form name="validate_other" form={form} onFinish={onFinish}>
-          <Form.Item name="dragg">
-            <Form.Item
-              name="dragger"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              noStyle
-            >
-              <Upload.Dragger name="files" accept="image/*">
-                <p className="ant-upload-drag-icon">
-                  <PictureOutlined style={{ color: "grey" }} />
-                </p>
-                <p className="ant-upload-text">
-                  Click or drag image to this area to upload
-                </p>
-                <p className="ant-upload-hint">Only single upload.</p>
-              </Upload.Dragger>
-            </Form.Item>
-
-            <Form.Item name="name" getValueFromEvent={onChangeInputText}>
-              <Input
-                style={{ marginTop: "2rem" }}
-                type="text"
-                name="nameInput"
-                maxLength={30}
-                placeholder="Nombre de tu imagen"
-              />
-            </Form.Item>
+          {/* <Form.Item name="dragg"> */}
+          <Form.Item
+            name="dragger"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            noStyle
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Image is required",
+            //   },
+            // ]}
+          >
+            <Upload.Dragger name="files" accept="image/*">
+              <p className="ant-upload-drag-icon">
+                <PictureOutlined style={{ color: "grey" }} />
+              </p>
+              <p className="ant-upload-text">
+                Click or drag image to this area to upload
+              </p>
+              <p className="ant-upload-hint">Only single upload.</p>
+            </Upload.Dragger>
           </Form.Item>
+
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[
+              {
+                required: true,
+                message: "Name is required",
+              },
+            ]}
+            // getValueFromEvent={onChangeInputText}
+            style={{ marginTop: "2rem" }}
+          >
+            <Input maxLength={30} placeholder="Nombre de tu imagen" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: "Description is required",
+              },
+            ]}
+            // getValueFromEvent={onChangeInputText}
+          >
+            <Input maxLength={100} placeholder="Descripcion de tu imagen" />
+          </Form.Item>
+          {/* </Form.Item> */}
 
           <Form.Item
             wrapperCol={{
               span: 10,
-              offset: 10,
+              offset: 7,
             }}
           >
             <Button type="primary" htmlType="submit">

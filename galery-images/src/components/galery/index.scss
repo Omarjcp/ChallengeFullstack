@@ -78,11 +78,24 @@
     }
 
     .containerNameImage {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: large;
       width: 100%;
 
       .nameImage {
-        padding-left: 1rem;
+        padding-left: .5rem;
+        font-weight: 500;
         color: #fff;
+      }
+      .nameOwnerImage {
+        position: absolute;
+        bottom: 3.5rem;
+        right: 0;
+        color: rgb(201, 201, 201);
+        font-size: .7rem;
+        padding-right: 1rem;
       }
     }
   }

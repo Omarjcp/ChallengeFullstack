@@ -5,37 +5,41 @@ import { WithoutImage } from "../withoutImages";
 import "./index.scss";
 import { app } from "../../firebase/fb";
 import { getData } from "../../hooks/getImages";
+import { useSelector } from "react-redux";
 
 export const Galery = ({ imagesUploaded, setImagesUploaded, setDocuments }) => {
-  const onDelete = async (e, name) => {
-    e.preventDefault();
-    const colectionRef = app.firestore().collection("archivos");
-    await colectionRef.doc(name).delete();
-    getData(app, setDocuments, setImagesUploaded);
+  let { allImages } = useSelector((state) => state);
+
+  const onDelete = async (e, idImage) => {
+    // e.preventDefault();
+    // const colectionRef = app.firestore().collection("archivos");
+    // await colectionRef.doc(name).delete();
+    // getData(app, setDocuments, setImagesUploaded);
   };
   return (
     <>
-      {imagesUploaded.length === 0 ? (
+      {allImages?.length === 0 ? (
         <WithoutImage />
       ) : (
         <div className="containerGalery">
-          {imagesUploaded.map((doc, i) => (
+          {allImages?.map((doc, i) => (
             <div key={i} className="containerImage">
               <div className="info">
                 <div className="containerButtonClose">
-                  <CloseCircleOutlined
+                  {/* <CloseCircleOutlined
                     style={{
                       fontSize: "1.3rem",
                       color: "red",
                     }}
-                    onClick={(e) => onDelete(e, doc.name)}
-                  />
+                    onClick={(e) => onDelete(e, doc?.id)}
+                  /> */}
                 </div>
                 <div className="containerNameImage">
-                  <h2 className="nameImage">{doc.name}</h2>
+                  <span className="nameImage">{doc?.name}</span>
+                  <label className="nameOwnerImage">{doc?.user?.name}</label>
                 </div>
               </div>
-              <img src={doc.url} />
+              <img src={doc?.image} />
             </div>
           ))}
         </div>

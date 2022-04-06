@@ -39,7 +39,7 @@ export const SelectHeader = ({
       </Menu.Item>
     </Menu>
   ) : (
-    <Menu>
+    <Menu style={{ width: "10rem" }}>
       <Menu.Item key="0">
         <Link to="/">Home</Link>
       </Menu.Item>
