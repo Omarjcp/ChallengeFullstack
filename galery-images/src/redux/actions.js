@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import instance from "./server/index";
-const urlServer = "http://localhost:3001/";
+const urlServer = "https://server-galery.herokuapp.com/";
 
 //CONSTS OF ACTIONS
 
