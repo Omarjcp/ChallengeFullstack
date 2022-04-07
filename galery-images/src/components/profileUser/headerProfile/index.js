@@ -8,14 +8,14 @@ export const HeaderProfile = ({ userLogin }) => {
       {/* <div className="secondContainerHeaderProfile"> */}
       <Avatar
         size={64}
-        src={userLogin.photo}
-        icon={userLogin.photo ? false : <UserOutlined />}
+        src={userLogin?.photo}
+        icon={userLogin?.photo ? false : <UserOutlined />}
       />
       <div className="containerDescriptionProfile">
         <span
-          style={{ fontSize: "2rem", fontWeight: "400", marginRight: "5rem" }}
+          style={{ fontSize: "2rem", fontWeight: "400", marginRight: "2rem" }}
         >
-          {userLogin.name}
+          {userLogin?.name}
         </span>
         <Button
           type="text"
@@ -30,11 +30,11 @@ export const HeaderProfile = ({ userLogin }) => {
 
         <br />
         <label style={{ fontSize: ".7rem", color: "grey" }}>
-          {userLogin.email}
+          {userLogin?.email}
         </label>
         <br />
         <br />
-        <p>{userLogin.bio}</p>
+        <p>{userLogin?.bio}</p>
       </div>
       {/* </div> */}
     </div>

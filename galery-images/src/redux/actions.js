@@ -78,6 +78,7 @@ export function getUserForId(id) {
   return async function (dispatch) {
     try {
       const { data } = await instance.get(urlServer + "user/" + id);
+      console.log("action geruserid data", data);
       return dispatch({ type: GET_USERS_FOR_ID, payload: data });
     } catch (err) {
       console.log(err);

@@ -1,7 +1,7 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Card, Divider } from "antd";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Card, Divider } from "antd";
 import { getUserForId } from "../../redux/actions";
 import { ButtomModalFile } from "../ButtonModalFile";
 import { HeaderProfile } from "./headerProfile";
@@ -10,15 +10,20 @@ import "./index.scss";
 
 const { Meta } = Card;
 
-export const ProfileUser = ({ setToggleLoading }) => {
+export const ProfileUser = ({ setToggleLoading, userLogin }) => {
   const dispatch = useDispatch();
-  const { userLogin } = useSelector((state) => state);
+  // const { userLogin } = useSelector((state) => state);
 
-  let idUserLogined = localStorage.getItem("id");
+  // let idUserLogined = localStorage.getItem("id");
+  // console.log(idUserLogined, "is storage");
+  // console.log("User login", userLogin);
 
-  useEffect(() => {
-    dispatch(getUserForId(idUserLogined));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUserForId(idUserLogined));
+  //   console.log("si entro en effect");
+  // }, []);
+
+  console.log(userLogin);
 
   return (
     <div className="containerProfile">
@@ -51,8 +56,8 @@ export const ProfileUser = ({ setToggleLoading }) => {
             <Meta
               avatar={
                 <Avatar
-                  src={userLogin.photo}
-                  icon={userLogin.photo ? false : <UserOutlined />}
+                  src={userLogin?.photo}
+                  icon={userLogin?.photo ? false : <UserOutlined />}
                 />
               }
               title={imagesData?.name}

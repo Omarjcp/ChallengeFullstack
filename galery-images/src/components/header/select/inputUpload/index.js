@@ -82,15 +82,17 @@ export const InputUploadImage = ({
       console.log(values);
       form.resetFields();
       setToggleLoading(false);
+      console.log("values form create", values);
       dispatch(createImage(values));
-      history.go(0);
+      setVisible(false);
+      // history.go(0);
     }
   };
   if (msgCreateImage) {
     message.info(msgCreateImage);
     dispatch(msgClear());
+    setTimeout(() => history.push("/"), 1000);
   }
-  console.log(msgCreateImage);
 
   return (
     <>

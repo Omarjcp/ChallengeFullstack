@@ -18,7 +18,9 @@ import { ProfileUser } from "./components/profileUser";
 
 function App() {
   const dispatch = useDispatch();
-  let { usersLength, allUsers, allImages } = useSelector((state) => state);
+  let { usersLength, allUsers, allImages, userLogin } = useSelector(
+    (state) => state
+  );
 
   const [toggleLoading, setToggleLoading] = useState(true);
   const [documents, setDocuments] = useState([]);
@@ -26,7 +28,6 @@ function App() {
   let idUserStorage = localStorage.getItem("id");
 
   useEffect(() => {
-    getData(app, setDocuments, setImagesUploaded);
     dispatch(getUsers());
     dispatch(getUserForId(idUserStorage));
 
@@ -68,7 +69,12 @@ function App() {
         />
         <Route
           path="/myprofile/:id"
-          render={() => <ProfileUser setToggleLoading={setToggleLoading} />}
+          render={() => (
+            <ProfileUser
+              setToggleLoading={setToggleLoading}
+              userLogin={userLogin}
+            />
+          )}
         />
       </div>
       <Route path="/" render={() => <Footer />} />

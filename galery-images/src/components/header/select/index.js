@@ -6,7 +6,8 @@ import { ButtomModalFile } from "../../ButtonModalFile";
 import { Link, useHistory } from "react-router-dom";
 
 import "./index.scss";
-import { logOut } from "../../../redux/actions";
+import { getUserForId, logOut } from "../../../redux/actions";
+import { useEffect } from "react";
 
 export const SelectHeader = ({
   setToggleLoading,
@@ -16,6 +17,11 @@ export const SelectHeader = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const { userLogin } = useSelector((state) => state);
+  // let idUserStorage = localStorage.getItem("id");
+
+  // useEffect(() => {
+  //   getUserForId(idUserStorage);
+  // }, []);
 
   const logout = () => {
     console.log("logut");
@@ -27,7 +33,7 @@ export const SelectHeader = ({
   const menu = localStorage.getItem("token") ? (
     <Menu style={{ width: "10rem" }}>
       <Menu.Item key="0">
-        <Link to={`/myprofile/${userLogin.id}`}>My profile</Link>
+        <Link to={`/myprofile/${userLogin?.id}`}>My profile</Link>
       </Menu.Item>
       <Menu.Item key="1">
         <Link to="/">Home</Link>
