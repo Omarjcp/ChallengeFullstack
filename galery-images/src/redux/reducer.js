@@ -16,6 +16,7 @@ const stateInitial = {
   msgLogin: "",
   msgCreatedUser: "",
   msgCreateImage: "",
+  msgUpdateUser: "",
   userLogin: {},
   usersLength: 0,
   allUsers: [],
@@ -61,12 +62,20 @@ export default function rootReducer(state = stateInitial, action) {
         msgCreatedUser: action.payload.msg,
       };
 
+    case UPDATE_USER:
+      return {
+        ...state,
+        msgUpdateUser: action.payload.msg,
+        userLogin: action.payload.user,
+      };
+
     case CLEAR_MSG:
       return {
         ...state,
         msgCreatedUser: "",
         msgLogin: "",
         msgCreateImage: "",
+        msgUpdateUser: "",
       };
 
     case GET_IMAGES:

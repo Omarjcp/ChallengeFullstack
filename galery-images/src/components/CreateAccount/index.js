@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { createUser, msgClear } from "../../redux/actions";
 
@@ -10,7 +10,6 @@ import { Form, Input, InputNumber, Button, Upload, message, Radio } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 import "./index.scss";
-import { useSelector } from "react-redux";
 
 export const CreateAccount = () => {
   const dispatch = useDispatch();

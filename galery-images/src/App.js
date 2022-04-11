@@ -15,6 +15,7 @@ import { getData } from "./hooks/getImages";
 import { CreateAccount } from "./components/CreateAccount";
 import { SignInComponent } from "./components/SignIn";
 import { ProfileUser } from "./components/profileUser";
+import { EditProfile } from "./components/profileUser/editProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,10 @@ function App() {
               userLogin={userLogin}
             />
           )}
+        />
+        <Route
+          path="/editprofile/:id"
+          render={() => <EditProfile userLogin={userLogin} />}
         />
       </div>
       <Route path="/" render={() => <Footer />} />

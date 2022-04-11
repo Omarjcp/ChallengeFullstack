@@ -1,0 +1,38 @@
+.container-form-edit-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+    .ant-form,.ant-form-horizontal {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        .ant-row {
+            flex-direction: column;
+            .ant-col {
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+    }
+}
+
+@media (max-width: 1250px) {
+    .container-form-edit-profile {
+        .ant-form,.ant-form-horizontal {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+        }
+    }
+}
+
+  @media (max-width: 630px) {
+    .container-form-edit-profile {
+        .ant-form,.ant-form-horizontal {
+            width: 80%;
+        }
+    }
+}

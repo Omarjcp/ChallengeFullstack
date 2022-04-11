@@ -23,7 +23,7 @@ export const ProfileUser = ({ setToggleLoading, userLogin }) => {
   //   console.log("si entro en effect");
   // }, []);
 
-  console.log(userLogin);
+  // console.log(userLogin);
 
   return (
     <div className="containerProfile">
@@ -32,7 +32,6 @@ export const ProfileUser = ({ setToggleLoading, userLogin }) => {
       <ButtomModalFile setToggleLoading={setToggleLoading} />
       <div className="containerGaleryProfile">
         {userLogin?.images?.map((imagesData) => (
-          // <div>
           <Card
             hoverable
             style={{
@@ -64,7 +63,6 @@ export const ProfileUser = ({ setToggleLoading, userLogin }) => {
               description={imagesData?.description}
             />
           </Card>
-          //</div>
         ))}
       </div>
     </div>
