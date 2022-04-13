@@ -1,29 +1,43 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Card, Divider } from "antd";
-import { getUserForId } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
+
+import { deleteImage, getUserForId } from "../../redux/actions";
+
+import { Avatar, Button, Card, Divider, Tooltip } from "antd";
+import { CloseOutlined, UserOutlined } from "@ant-design/icons";
+
 import { ButtomModalFile } from "../ButtonModalFile";
 import { HeaderProfile } from "./headerProfile";
+
+import Swal from "sweetalert2";
 
 import "./index.scss";
 
 const { Meta } = Card;
 
-export const ProfileUser = ({ setToggleLoading, userLogin }) => {
+export const ProfileUser = ({ setToggleLoading }) => {
   const dispatch = useDispatch();
-  // const { userLogin } = useSelector((state) => state);
+  const history = useHistory();
+  const { userLogin, msgDeleteImage } = useSelector((state) => state);
 
-  // let idUserLogined = localStorage.getItem("id");
-  // console.log(idUserLogined, "is storage");
-  // console.log("User login", userLogin);
+  console.log(msgDeleteImage);
 
-  // useEffect(() => {
-  //   dispatch(getUserForId(idUserLogined));
-  //   console.log("si entro en effect");
-  // }, []);
+  const onDelete = (e, idImage) => {
+    e.preventDefault();
+    dispatch(deleteImage(idImage));
+    dispatch(getUserForId(userLogin.id));
 
-  // console.log(userLogin);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Delete image successful",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+
+    setTimeout(() => history.go(0), 2500);
+  };
 
   return (
     <div className="containerProfile">
@@ -62,6 +76,19 @@ export const ProfileUser = ({ setToggleLoading, userLogin }) => {
               title={imagesData?.name}
               description={imagesData?.description}
             />
+            <Tooltip title="Delete Image">
+              <Button
+                shape="round"
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  backgroundColor: "transparent",
+                }}
+                onClick={(e) => onDelete(e, imagesData.id)}
+                icon={<CloseOutlined style={{ color: "rgb(129, 46, 46)" }} />}
+              />
+            </Tooltip>
           </Card>
         ))}
       </div>

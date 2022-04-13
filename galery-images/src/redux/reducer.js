@@ -9,6 +9,7 @@ import {
   LOG_OUT,
   CLEAR_MSG,
   IMAGES_SEARCH,
+  DELETE_IMAGE,
 } from "./actions";
 
 const stateInitial = {
@@ -17,6 +18,7 @@ const stateInitial = {
   msgCreatedUser: "",
   msgCreateImage: "",
   msgUpdateUser: "",
+  msgDeleteImage: "",
   userLogin: {},
   usersLength: 0,
   allUsers: [],
@@ -76,6 +78,7 @@ export default function rootReducer(state = stateInitial, action) {
         msgLogin: "",
         msgCreateImage: "",
         msgUpdateUser: "",
+        msgDeleteImage: "",
       };
 
     case GET_IMAGES:
@@ -88,6 +91,12 @@ export default function rootReducer(state = stateInitial, action) {
       return {
         ...state,
         msgCreateImage: action.payload.msg,
+      };
+
+    case DELETE_IMAGE:
+      return {
+        ...state,
+        msgDeleteImage: action.payload.msg,
       };
 
     case IMAGES_SEARCH:

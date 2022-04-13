@@ -32,11 +32,9 @@ function App() {
     dispatch(getUsers());
     dispatch(getUserForId(idUserStorage));
 
-    dispatch(getImages());
-
     setTimeout(() => {
       setToggleLoading(false);
-    }, 2500);
+    }, 3000);
   }, []);
 
   return (
@@ -70,12 +68,7 @@ function App() {
         />
         <Route
           path="/myprofile/:id"
-          render={() => (
-            <ProfileUser
-              setToggleLoading={setToggleLoading}
-              userLogin={userLogin}
-            />
-          )}
+          render={() => <ProfileUser setToggleLoading={setToggleLoading} />}
         />
         <Route
           path="/editprofile/:id"

@@ -16,3 +16,14 @@
         min-height: 40vh;
     }
 }
+
+.ant-card-body {
+
+    .ant-btn, .ant-btn-circle, .ant-btn-default, .ant-btn-icon-only {
+        border-color: rgb(129, 46, 46);
+        &:hover {
+            border-color: rgb(129, 46, 46);
+            background-color: opacify($color: #ce8b8b44, $amount: .05) !important;
+        }
+    }
+}

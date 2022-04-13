@@ -16,6 +16,7 @@ export const GET_IMAGES = "GET_IMAGES";
 export const GET_IMAGES_LOADED = "GET_IMAGES_LOADED";
 export const CREATE_IMAGES = "CREATE_IMAGES";
 export const IMAGES_SEARCH = "IMAGES_SEARCH";
+export const DELETE_IMAGE = "DELETE_IMAGE";
 
 //LOGIN
 export const SIGN_IN = "SIGN_IN";
@@ -113,6 +114,18 @@ export function getImages() {
     try {
       const { data } = await axios(urlServer + "image");
       return dispatch({ type: GET_IMAGES, payload: data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function deleteImage(idimage) {
+  return async function (dispatch) {
+    try {
+      const { data } = await instance.delete("image/" + idimage);
+      console.log("delete image action", data);
+      return dispatch({ type: DELETE_IMAGE, payload: data });
     } catch (err) {
       console.log(err);
     }
