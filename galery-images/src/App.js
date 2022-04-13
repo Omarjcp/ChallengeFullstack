@@ -1,31 +1,26 @@
 import { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { app } from "./firebase/fb";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { getUserForId, getUsers } from "./redux/actions";
 
 import "antd/dist/antd.css";
+
 import { LoadingComponent } from "./components/loading";
 import { HeaderNav } from "./components/header";
 import { Galery } from "./components/galery";
 import { Footer } from "./components/footer";
-
-import "./App.scss";
-import { getImages, getUserForId, getUsers } from "./redux/actions";
-import { getData } from "./hooks/getImages";
 import { CreateAccount } from "./components/CreateAccount";
 import { SignInComponent } from "./components/SignIn";
 import { ProfileUser } from "./components/profileUser";
 import { EditProfile } from "./components/profileUser/editProfile";
 
+import "./App.scss";
+
 function App() {
   const dispatch = useDispatch();
-  let { usersLength, allUsers, allImages, userLogin } = useSelector(
-    (state) => state
-  );
 
   const [toggleLoading, setToggleLoading] = useState(true);
-  const [documents, setDocuments] = useState([]);
-  const [imagesUploaded, setImagesUploaded] = useState([]);
   let idUserStorage = localStorage.getItem("id");
 
   useEffect(() => {
@@ -43,37 +38,17 @@ function App() {
       <div style={{ overflowX: "hidden" }}>
         <Route
           path="/"
-          render={() => (
-            <HeaderNav
-              setToggleLoading={setToggleLoading}
-              documents={documents}
-              setImagesUploaded={setImagesUploaded}
-              setDocuments={setDocuments}
-            />
-          )}
+          render={() => <HeaderNav setToggleLoading={setToggleLoading} />}
         />
         <Route path="/createaccount" render={() => <CreateAccount />} />
         <Route path="/signin" render={() => <SignInComponent />} />
 
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Galery
-              imagesUploaded={imagesUploaded}
-              setImagesUploaded={setImagesUploaded}
-              setDocuments={setDocuments}
-            />
-          )}
-        />
+        <Route exact path="/" render={() => <Galery />} />
         <Route
           path="/myprofile/:id"
           render={() => <ProfileUser setToggleLoading={setToggleLoading} />}
         />
-        <Route
-          path="/editprofile/:id"
-          render={() => <EditProfile userLogin={userLogin} />}
-        />
+        <Route path="/editprofile/:id" render={() => <EditProfile />} />
       </div>
       <Route path="/" render={() => <Footer />} />
     </>

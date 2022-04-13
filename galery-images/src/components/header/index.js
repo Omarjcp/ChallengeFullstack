@@ -6,12 +6,7 @@ import { OwnerPage } from "./ownerPage";
 import { SelectHeader } from "./select";
 import { useLocation } from "react-router-dom";
 
-export const HeaderNav = ({
-  setToggleLoading,
-  documents,
-  setImagesUploaded,
-  setDocuments,
-}) => {
+export const HeaderNav = ({ setToggleLoading }) => {
   const location = useLocation();
 
   return (
@@ -19,20 +14,12 @@ export const HeaderNav = ({
       <OwnerPage />
       <br />
       {location.pathname === "/" ? (
-        <InputSearch
-          documents={documents}
-          setImagesUploaded={setImagesUploaded}
-          setToggleLoading={setToggleLoading}
-        />
+        <InputSearch setToggleLoading={setToggleLoading} />
       ) : (
         <></>
       )}
       <br />
-      <SelectHeader
-        setToggleLoading={setToggleLoading}
-        setDocuments={setDocuments}
-        setImagesUploaded={setImagesUploaded}
-      />
+      <SelectHeader />
     </div>
   );
 };

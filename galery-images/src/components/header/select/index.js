@@ -9,11 +9,7 @@ import "./index.scss";
 import { getUserForId, logOut } from "../../../redux/actions";
 import { useEffect } from "react";
 
-export const SelectHeader = ({
-  setToggleLoading,
-  setDocuments,
-  setImagesUploaded,
-}) => {
+export const SelectHeader = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { userLogin } = useSelector((state) => state);

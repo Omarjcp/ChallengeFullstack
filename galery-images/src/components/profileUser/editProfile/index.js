@@ -10,10 +10,10 @@ import { CameraFilled, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 import "./index.scss";
 
-export const EditProfile = ({ userLogin }) => {
+export const EditProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { msgUpdateUser } = useSelector((state) => state);
+  const { msgUpdateUser, userLogin } = useSelector((state) => state);
 
   const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [imageUrl, setImageUrl] = useState("");

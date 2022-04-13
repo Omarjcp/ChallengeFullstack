@@ -8,12 +8,7 @@ import { app } from "../../../../firebase/fb";
 import { getData } from "../../../../hooks/getImages";
 import { createImage, msgClear } from "../../../../redux/actions";
 
-export const InputUploadImage = ({
-  setVisible,
-  setToggleLoading,
-  setDocuments,
-  setImagesUploaded,
-}) => {
+export const InputUploadImage = ({ setVisible, setToggleLoading }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { msgCreateImage, userLogin } = useSelector((state) => state);
